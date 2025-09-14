@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+body { @apply bg-[#0e1621] text-white; }
+
+.main-wrap { min-height: 100dvh; display: flex; flex-direction: column; }
+.main-content { flex: 1 1 auto; }
+
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* Use Tailwind v4 single import */
+@import "tailwindcss";
