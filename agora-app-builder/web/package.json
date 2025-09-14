@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "vercel-build": "NEXT_DISABLE_ESLINT=1 next build"
+    "postinstall": "prisma generate --schema=./prisma/schema.prisma",
+    "vercel-build": "prisma generate --schema=./prisma/schema.prisma && prisma migrate deploy --schema=./prisma/schema.prisma || echo \"(skip migrate)\" && NEXT_DISABLE_ESLINT=1 next build"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
@@ -31,6 +32,7 @@
     "eslint": "^9.35.0",
     "eslint-config-next": "^15.5.2",
     "postcss": "^8.5.6",
+    "prisma": "^6.15.0",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.6.3"
   }
