@@ -1,26 +1,26 @@
-export const runtime = "nodejs";
-
+// app/api/chat/list/route.ts
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
-export async function GET(req: Request) {
-  const url = new URL(req.url);
-  const room = url.searchParams.get("room")?.toLowerCase();
-  if (!room) return NextResponse.json({ messages: [] });
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-  const messages = await prisma.message.findMany({
-    where: { room: { name: room } },
-    orderBy: { createdAt: "asc" },
-    take: 200,
-    select: { id: true, text: true, createdAt: true, username: true },
-  });
+type Message = {
+  id: string | number;
+  text: string;
+  username: string;
+  createdAt?: string | number | Date | null;
+};
+
+export async function GET() {
+  // TODO: replace with your real data fetch
+  const messages: Message[] = [];
 
   return NextResponse.json({
-    messages: messages.map((m) => ({
-      id: m.id,
+    messages: messages.map((m: Message) => ({
+      id: String(m.id),
       text: m.text,
       username: m.username,
-      createdAt: m.createdAt.toISOString(),
+      createdAt: m.createdAt ? new Date(m.createdAt).toISOString() : null,
     })),
   });
 }
